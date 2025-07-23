@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "167834232581",
+    "project_id": "rongtuli-16811",
+    "storage_bucket": "rongtuli-16811.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:167834232581:android:89787e3455e29dd648b96c",
+        "android_client_info": {
+          "package_name": "com.example.cartgine"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBF8I0_7w5J8XJHf2kZ4DpQiM5oV4fJtws"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
