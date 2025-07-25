@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:rong_tuli/consts/consts.dart';
+import 'package:rong_tuli/controllers/auth_controller.dart';
+import 'package:rong_tuli/views/screens/home/home.dart';
 import 'package:rong_tuli/widgets/Shared/bg_widget.dart';
 import 'package:rong_tuli/widgets/Shared/logo.dart';
 import 'package:rong_tuli/widgets/Shared/shared_button.dart';
@@ -14,6 +16,13 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   bool? isCheck = false;
+  var controller = Get.put(AuthController());
+
+  var nameController = TextEditingController();
+    var emailController = TextEditingController();
+      var passwordController = TextEditingController();
+        var passwordRetypeController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return bgWidget(
@@ -30,10 +39,10 @@ class _SignupScreenState extends State<SignupScreen> {
 
                 Column(
                   children: [
-                    textField(hint: nameHint, title: name),
-                    textField(hint: emailHint, title: email),
-                    textField(hint: passwordHint, title: password),
-                    textField(hint: passwordHint, title: retypePassword),
+                    textField(hint: nameHint, title: name, controller: nameController, isPass: false),
+                    textField(hint: emailHint, title: email, controller: emailController, isPass: false),
+                    textField(hint: passwordHint, title: password, controller: passwordController, isPass: true),
+                    textField(hint: passwordHint, title: retypePassword, controller: passwordRetypeController, isPass: true),
                     10.heightBox,
                     Row(
                       children: [
@@ -73,8 +82,26 @@ class _SignupScreenState extends State<SignupScreen> {
                       ],
                     ),
                     5.heightBox,
-                    sharedButton(color: isCheck == true? redColor : lightGrey, title: signup, textColor: whiteColor, onPress: () {})
-                        .box
+                    sharedButton(color: isCheck == true? redColor : lightGrey, title: signup, textColor: whiteColor, onPress: ()async {
+                      if (isCheck != false){
+                        try {
+                          await controller.signupMethod(context: context, email: emailController.text, password : passwordController.text).then((Value){
+                            return controller.storeUserData(
+                              email: emailController.text,
+                              password: passwordController.text,
+                              name: nameController.text
+                            );
+                          }).then ((value){
+                            VxToast.show(context, msg: loggedin);
+                            Get.offAll(() => const Home());
+                          });
+                        } catch (e) {
+                          auth.signOut();
+                          VxToast.show(context, msg: e.toString());
+                        }
+                      }
+                    },
+                    ).box
                         .width(context.screenWidth -50)
                         .make(),
                     10.heightBox,

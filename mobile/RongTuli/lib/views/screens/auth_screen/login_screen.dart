@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:rong_tuli/consts/consts.dart';
 import 'package:rong_tuli/consts/list.dart';
 import 'package:rong_tuli/widgets/Shared/bg_widget.dart';
@@ -27,8 +28,8 @@ class LoginScreen extends StatelessWidget {
 
             Column(
               children: [
-              textField(hint: emailHint, title: email),
-               textField(hint: passwordHint, title: password),
+              textField(hint: emailHint, title: email, isPass: false),
+               textField(hint: passwordHint, title: password, isPass: true),
                Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(onPressed: () {}, child: forgetPass.text.make())),
