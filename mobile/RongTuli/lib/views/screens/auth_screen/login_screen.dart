@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:rong_tuli/consts/consts.dart';
 import 'package:rong_tuli/consts/list.dart';
+import 'package:rong_tuli/controllers/auth_controller.dart';
 import 'package:rong_tuli/widgets/Shared/bg_widget.dart';
 import 'package:rong_tuli/widgets/Shared/logo.dart';
 import 'package:rong_tuli/widgets/Shared/shared_button.dart';
@@ -14,6 +15,8 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+var controller = Get.put(AuthController());
+
     return bgWidget(
       child:Scaffold(
         resizeToAvoidBottomInset: false,
@@ -28,16 +31,21 @@ class LoginScreen extends StatelessWidget {
 
             Column(
               children: [
-              textField(hint: emailHint, title: email, isPass: false),
-               textField(hint: passwordHint, title: password, isPass: true),
+              textField(hint: emailHint, title: email, isPass: false, controller: controller.emailController),
+               textField(hint: passwordHint, title: password, isPass: true, controller: controller.passwordController),
                Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(onPressed: () {}, child: forgetPass.text.make())),
                 5.heightBox,
-                sharedButton(color: redColor, title: login, textColor: whiteColor, onPress: () {
-                  Get.to(() => const Home());
-                })
-                .box
+                sharedButton(color: redColor, title: login, textColor: whiteColor, onPress: () async {
+                  await controller.loginMethod(context: context).then((Value){
+                    if (Value!= null){
+                      VxToast.show(context, msg: loggedin);
+                      Get.offAll(() => const Home());
+                    }
+                  });
+                },
+                ).box
                 .width(context.screenWidth -50)
                 .make(),
 

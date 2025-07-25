@@ -1,5 +1,9 @@
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:rong_tuli/consts/consts.dart';
 import 'package:rong_tuli/consts/list.dart';
+import 'package:rong_tuli/controllers/auth_controller.dart';
+import 'package:rong_tuli/views/screens/auth_screen/login_screen.dart';
 import 'package:rong_tuli/views/screens/profile/details_cart.dart';
 import 'package:rong_tuli/widgets/Shared/bg_widget.dart';
 
@@ -41,7 +45,10 @@ class ProfileScreen extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(4),
                         )),
-                      onPressed: () {},
+                      onPressed: () async {
+                        await Get.put(AuthController()).signoutMethod(context);
+                        Get.offAll(() => const LoginScreen());
+                      },
                       child: logout.text.fontFamily(semibold).white.make(),
                     ),
                   ],
