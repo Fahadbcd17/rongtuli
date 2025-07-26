@@ -5,6 +5,7 @@ import 'package:rong_tuli/consts/consts.dart';
 import 'package:rong_tuli/consts/firebase_consts.dart';
 
 class AuthController extends GetxController {
+  var isLoading =false.obs;
   var emailController = TextEditingController();
     var passwordController = TextEditingController();
 
@@ -29,7 +30,7 @@ class AuthController extends GetxController {
 
   storeUserData({name, password, email}) async{
     DocumentReference store = firestore.collection(userCollection).doc(currentUser! .uid);
-    store.set({ 'name': name, 'password' : password, 'email' : email, 'imageUrl' :''});
+    store.set({ 'name': name, 'password' : password, 'email' : email, 'imageUrl' :'', 'id' : currentUser!.uid});
   }
 
   signoutMethod(context) async{
