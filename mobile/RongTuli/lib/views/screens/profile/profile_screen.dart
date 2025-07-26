@@ -1,10 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:rong_tuli/consts/consts.dart';
 import 'package:rong_tuli/consts/list.dart';
 import 'package:rong_tuli/controllers/auth_controller.dart';
+import 'package:rong_tuli/controllers/profile_controller.dart';
+import 'package:rong_tuli/services/firestore_services.dart';
 import 'package:rong_tuli/views/screens/auth_screen/login_screen.dart';
 import 'package:rong_tuli/views/screens/profile/details_cart.dart';
+import 'package:rong_tuli/views/screens/profile/edit_profile_screen.dart';
 import 'package:rong_tuli/widgets/Shared/bg_widget.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -12,14 +16,28 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var controller = Get.put(ProfileController());
     return bgWidget(
       child: Scaffold(
-        body: SafeArea(
+        body:StreamBuilder(
+          stream: FirestoreServices.getUser(currentUser!.uid), 
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshots){
+            if(!snapshots.hasData){
+              return const Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(redColor),
+              ),
+              );
+            } else {
+              var data = snapshots.data!.docs[0];
+              return  SafeArea(
           child: Column(
             children: [
              Padding(
                padding: const EdgeInsets.all(8.0),
-               child: const Align(alignment: Alignment.topRight, child: Icon(Icons.edit, color: whiteColor)).onTap((){ }),
+               child: const Align(alignment: Alignment.topRight, child: Icon(Icons.edit, color: whiteColor)).onTap((){
+                Get.to(()=> EditProfileScreen( 
+                  data: data
+                  ));
+               }),
              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -35,8 +53,8 @@ class ProfileScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            "user1".text.fontFamily(semibold).white.make(),
-                            "example@example.com".text.white.make(),
+                            "${data['name']}".text.fontFamily(semibold).white.make(),
+                            "${data['email']}".text.white.make(),
                           ],
                         )),
                     OutlinedButton(
@@ -58,9 +76,9 @@ class ProfileScreen extends StatelessWidget {
              Row(
                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                children: [
-                 detailsCart(count: "00", title: "in your cart", width: context.screenWidth / 3.4),
-                 detailsCart(count: "44", title: "in your wishlist", width: context.screenWidth / 3.4),
-                 detailsCart(count: "5763", title: "your orders", width: context.screenWidth / 3.4),
+                 detailsCart(count: data['cart_count'], title: "in your cart", width: context.screenWidth / 3.4),
+                 detailsCart(count: data['wishlist_count'], title: "your wishlist", width: context.screenWidth / 3.4),
+                 detailsCart(count: data['order_count'],title: "your orders", width: context.screenWidth / 3.4),
                ],
              ),
               ListView.separated(
@@ -79,8 +97,11 @@ class ProfileScreen extends StatelessWidget {
                   },
                   ).box.rounded.white.margin(const EdgeInsets.all(12)).padding(const EdgeInsets.symmetric(horizontal: 16)).shadowSm.make().box.color(redColor).make(),
             ],
+          ));
+            }
+            
+          },
           ),
-        ),
       ),
     );
   }

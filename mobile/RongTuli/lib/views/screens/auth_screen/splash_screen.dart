@@ -3,7 +3,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:rong_tuli/consts/consts.dart';
 import 'package:rong_tuli/views/screens/auth_screen/login_screen.dart';
-import 'package:rong_tuli/views/screens/home/home_screen.dart';
+import 'package:rong_tuli/views/screens/home/home.dart';
 import 'package:rong_tuli/widgets/Shared/logo.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
         if(user == null && mounted){
           Get.to (() => const LoginScreen());
         } else {
-          Get.to(() => const HomeScreen());
+          Get.to(() => const Home());
         }
       });
     });
