@@ -15,6 +15,8 @@ class EditProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.find<ProfileController>();
+    controller.nameController.text = data['name'];
+    controller.passController.text = data['password'];
     return bgWidget(
       child: Scaffold(
         appBar: AppBar(),
@@ -39,8 +41,8 @@ class EditProfileScreen extends StatelessWidget {
                           }, textColor: whiteColor, title: "Change"),
                           const Divider(),
                           20.heightBox,
-                          textField(hint: nameHint,title: name,isPass: false),
-                          textField(hint: passwordHint,title: password,isPass: true),
+                          textField(hint: nameHint,title: name,isPass: false, controller: controller.nameController),
+                          textField(hint: passwordHint,title: password,isPass: true, controller: controller.passController),
                           20.heightBox,
                           SizedBox(
                             width: context.screenWidth -60,

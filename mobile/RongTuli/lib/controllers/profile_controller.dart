@@ -8,6 +8,9 @@ import 'package:rong_tuli/consts/consts.dart';
 class ProfileController  extends GetxController{
   var profileImgPath = ''.obs;
 
+  var nameController = TextEditingController();
+  var passController = TextEditingController();
+
   changeImage(context) async{
     try {
       final img = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 70);
