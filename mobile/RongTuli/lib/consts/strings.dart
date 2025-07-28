@@ -57,5 +57,5 @@ const video = "Video",
     productsYouMayLike = "Products you may also like";
 
 
-const wishlist = "My Wishlist", orders = "My Orders", messages = "Messages";
+const wishlist = "My Wishlist", orders = "My Orders", messages = "Messages", oldpass = "Old password", newpass = "New password";
 
