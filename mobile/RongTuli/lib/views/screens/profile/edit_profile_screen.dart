@@ -51,7 +51,7 @@ class EditProfileScreen extends StatelessWidget {
                           10.heightBox,
                           textField(hint: passwordHint,title: oldpass,isPass: true, controller: controller.oldpassController),
                           10.heightBox,
-                          textField(hint: passwordHint,title: newpass,isPass: true, controller: controller.oldpassController),
+                          textField(hint: passwordHint,title: newpass,isPass: true, controller: controller.newpassController),
                           20.heightBox,
                          controller.isloading.value? const CircularProgressIndicator(
                           valueColor: AlwaysStoppedAnimation(redColor),
@@ -65,6 +65,12 @@ class EditProfileScreen extends StatelessWidget {
                                 controller.profileImageLink = data['imageUrl'];
                               }
                             if (data['password'] == controller.oldpassController.text){
+                              await controller.changeAuthPassword(
+                                email: data['email'],
+                                password: controller.oldpassController.text,
+                                newpassword: controller.newpassController.text
+                              );
+
                                 await controller.updateProfile(
                               imgUrl: controller.profileImageLink,
                               name: controller.nameController.text,

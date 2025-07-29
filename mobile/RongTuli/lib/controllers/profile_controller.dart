@@ -45,7 +45,11 @@ updateProfile({name, password, imgUrl}) async{
 
 changeAuthPassword ({email, password, newpassword}) async{
   final cred = EmailAuthProvider.credential(email: email, password: password);
-  
+  await currentUser!.reauthenticateWithCredential(cred).then((Value){
+    currentUser!.updatePassword(newpassword);
+  }).catchError((error){
+    print(error.toString());
+  });
 }
 
 }
