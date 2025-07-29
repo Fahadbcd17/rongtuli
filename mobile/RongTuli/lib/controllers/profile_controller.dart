@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart';
 import 'package:flutter/services.dart';
@@ -39,6 +40,12 @@ updateProfile({name, password, imgUrl}) async{
     'name': name, 'password':password, 'imageUrl':imgUrl
   }, SetOptions(merge: true));
   isloading(false);
+}
+
+
+changeAuthPassword ({email, password, newpassword}) async{
+  final cred = EmailAuthProvider.credential(email: email, password: password);
+  
 }
 
 }
