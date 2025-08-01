@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:rong_tuli/controllers/product_controler.dart';
 import 'package:rong_tuli/views/screens/category/item_details.dart';
 import 'package:rong_tuli/widgets/Shared/bg_widget.dart';
 import 'package:rong_tuli/consts/consts.dart';
@@ -9,6 +10,9 @@ class CategoryDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    var controller = Get.find<ProductControler>();
+
     return bgWidget(
       child: Scaffold(
         appBar: AppBar(
@@ -22,7 +26,9 @@ class CategoryDetails extends StatelessWidget {
                 physics:const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: List.generate(6, (index) => "Baby Clothing".text.size(12)
+                  children: List.generate(
+                    controller.subcat.length,
+                   (index) => "${controller.subcat[index]}".text.size(12)
                       .fontFamily(semibold).color(darkFontGrey).makeCentered().box.rounded.white.size(120, 60)
                       .margin(const EdgeInsets.symmetric(horizontal: 4)).make()),
                 ),

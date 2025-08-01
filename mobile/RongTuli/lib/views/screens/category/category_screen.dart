@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:rong_tuli/consts/consts.dart';
 import 'package:rong_tuli/consts/list.dart';
+import 'package:rong_tuli/controllers/product_controler.dart';
 import 'package:rong_tuli/views/screens/category/category_details.dart';
 import 'package:rong_tuli/widgets/Shared/bg_widget.dart';
 
@@ -10,6 +11,7 @@ class CategoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var controller = Get.put(ProductControler());
     return bgWidget(
       child: Scaffold(
         appBar: AppBar(
@@ -30,6 +32,7 @@ class CategoryScreen extends StatelessWidget {
                     categoriesList[index].text.color(darkFontGrey).align(TextAlign.center).make(),
                   ],
                 ).box.white.rounded.clip(Clip.antiAlias).outerShadowSm.make().onTap((){
+                  controller.getSubCategories(categoriesList[index]);
                   Get.to(() => CategoryDetails(title: categoriesList[index]));
                 });
               }),
