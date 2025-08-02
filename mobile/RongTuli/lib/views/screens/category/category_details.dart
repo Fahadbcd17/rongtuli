@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:rong_tuli/controllers/product_controler.dart';
+import 'package:rong_tuli/services/firestore_services.dart';
 import 'package:rong_tuli/views/screens/category/item_details.dart';
 import 'package:rong_tuli/widgets/Shared/bg_widget.dart';
 import 'package:rong_tuli/consts/consts.dart';
+import 'package:rong_tuli/widgets/Shared/loading_indicator.dart';
 
 class CategoryDetails extends StatelessWidget {
   final String? title;
@@ -18,7 +21,19 @@ class CategoryDetails extends StatelessWidget {
         appBar: AppBar(
           title: title!.text.fontFamily(bold).white.make(),
         ),
-        body: Container(
+        body: StreamBuilder(
+          stream: FirestoreServices.getProducts(title),
+           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshots){
+            if(!snapshots.hasData){
+              return Center(
+                child: loadingIndicator(),
+              );
+           } else if (snapshots.data!.docs.isEmpty){
+            return Center(
+              child: "No products found!".text.color(darkFontGrey).make(),
+            );
+           } else {
+            return Container(
           padding:const EdgeInsets.all(12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,8 +72,10 @@ class CategoryDetails extends StatelessWidget {
                   }))
           ],
         ),
-        ),
-      )
-    );
+        );
+           }
+           }
+           ),
+      ));
   }
 }
