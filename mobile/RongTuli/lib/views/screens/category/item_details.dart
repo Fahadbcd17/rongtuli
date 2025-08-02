@@ -5,7 +5,8 @@ import 'package:rong_tuli/widgets/Shared/shared_button.dart';
 
 class ItemDetails extends StatelessWidget {
   final String? title;
-  const ItemDetails({super.key, required this.title});
+  final dynamic data;
+  const ItemDetails({super.key, required this.title, this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -31,17 +32,28 @@ class ItemDetails extends StatelessWidget {
                       VxSwiper.builder(
                         autoPlay: true,
                           height: 350,
-                          itemCount: 3, aspectRatio: 16/9, itemBuilder: (context,index)
+                          itemCount: data['p_imgs'].length, 
+                          aspectRatio: 16/9, 
+                          viewportFraction: 1.0,
+                          itemBuilder: (context,index)
                           {
-                            return Image.asset(imgFc5, width: double.infinity, fit: BoxFit.cover
+                            return Image.network(
+                              data["p_imgs"][index], 
+                            width: double.infinity, 
+                            fit: BoxFit.cover
                             );
                           }),
                       10.heightBox,
 
                       title!.text.size(16).color(darkFontGrey).fontFamily(semibold).make(),
                       10.heightBox,
-                      VxRating(onRatingUpdate: (value){}, normalColor: textfieldGrey,
-                          selectionColor: golden, count: 5, size: 25, stepInt: true),
+                      VxRating(
+                        isSelectable: false,
+                        value: double.parse(data['p_rating']),
+                        onRatingUpdate: (value){}, normalColor: textfieldGrey,
+                          selectionColor: golden, count: 5, size: 25,
+                          maxRating: 5,
+                          ),
                       10.heightBox,
                       "\$30.00".text.color(redColor).fontFamily(bold).size(18).make(),
                       10.heightBox,

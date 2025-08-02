@@ -33,6 +33,8 @@ class CategoryDetails extends StatelessWidget {
               child: "No products found!".text.color(darkFontGrey).make(),
             );
            } else {
+            var data = snapshots.data!.docs;
+
             return Container(
           padding:const EdgeInsets.all(12),
           child: Column(
@@ -54,20 +56,22 @@ class CategoryDetails extends StatelessWidget {
                   child: GridView.builder(
                     physics:const BouncingScrollPhysics(),
                 shrinkWrap: true,
-                  itemCount: 6,
+                  itemCount: data.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,mainAxisExtent:250, mainAxisSpacing: 8,crossAxisSpacing: 8),
                   itemBuilder: (context,index){
                    return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Image.asset(imgP5, height: 150, width: 200, fit: BoxFit.cover),
+                        Image.network(
+                          data[index]['p_imgs'][0],
+                           height: 150, width: 200, fit: BoxFit.cover),
                         const Spacer(),
-                        "Laptop 8GB/512GB".text.fontFamily(semibold).color(darkFontGrey).make(),
+                        "${data[index]['p_name']}".text.fontFamily(semibold).color(darkFontGrey).make(),
                         10.heightBox,
-                        "\$200".text.color(redColor).fontFamily(bold).size(16).make(),
+                        "${data[index]['p_price']}".numCurrencyWithLocale().text.color(redColor).fontFamily(bold).size(16).make(),
                       ],
                     ).box.white.roundedSM.margin(const EdgeInsets.symmetric(horizontal: 4)).outerShadowSm.padding(const EdgeInsets.all(8)).make().onTap((){
-                      Get.to(() => const ItemDetails(title: "item"));
+                      Get.to(() =>  ItemDetails(title: "${data[index]['p_name']}", data: data[index]));
                    });
                   }))
           ],
