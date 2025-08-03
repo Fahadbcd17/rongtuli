@@ -1,5 +1,8 @@
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:rong_tuli/consts/consts.dart';
 import 'package:rong_tuli/consts/list.dart';
+import 'package:rong_tuli/controllers/product_controler.dart';
 import 'package:rong_tuli/widgets/Shared/shared_button.dart';
 
 
@@ -10,9 +13,10 @@ class ItemDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var controller = Get.find<ProductControler>();
    
     return Scaffold(
-      backgroundColor: lightGrey,
+      backgroundColor: whiteColor,
       appBar: AppBar(
         title: title!.text.color(darkFontGrey).fontFamily(bold).make(),
         actions: [
@@ -55,7 +59,7 @@ class ItemDetails extends StatelessWidget {
                           maxRating: 5,
                           ),
                       10.heightBox,
-                      "\$30.00".text.color(redColor).fontFamily(bold).size(18).make(),
+                      "${data['p_price']}".numCurrencyWithLocale().text.color(redColor).fontFamily(bold).size(18).make(),
                       10.heightBox,
                       Row(
                         children: [
@@ -66,7 +70,7 @@ class ItemDetails extends StatelessWidget {
                             children: [
                               "Seller".text.white.fontFamily(semibold).make(),
                               5.heightBox,
-                              "In House Brands".text.fontFamily(semibold).color(darkFontGrey).size(16).make(),
+                              "${data['p_seller']}".text.fontFamily(semibold).color(darkFontGrey).size(16).make(),
                             ],
                           )),
                          const CircleAvatar(
@@ -86,8 +90,12 @@ class ItemDetails extends StatelessWidget {
                                 child: "Color: ".text.color(textfieldGrey).make(),
                               ),
                               Row(
-                                children: List.generate(3,(index) => VxBox().size(40, 40).roundedFull
-                                        .color(Vx.randomPrimaryColor).margin(const EdgeInsets.symmetric(horizontal: 4)).make()),
+                                children: List.generate(
+                                  data['p_colors'].length,
+                                (index) => VxBox().size(40, 40).roundedFull
+                                        .color
+                                        (Color(data['p_colors'][index]).withOpacity(1.0))
+                                        .margin(const EdgeInsets.symmetric(horizontal: 4)).make()),
                               ),
                             ],
                           ).box.padding(const EdgeInsets.all(8)).make(),
@@ -97,16 +105,18 @@ class ItemDetails extends StatelessWidget {
                             children: [
                               SizedBox(
                                 width: 100,
-                                child: "Color: ".text.color(textfieldGrey).make(),
+                                child: "Quantity: ".text.color(textfieldGrey).make(),
                               ),
-                              Row(
-                                children: [
-                                  IconButton(onPressed: (){}, icon: const Icon(Icons.remove)),
-                                  "0".text.size(16).color(darkFontGrey).fontFamily(bold).make(),
-                                  IconButton(onPressed: (){}, icon: const Icon(Icons.add)),
-                                  10.widthBox,
-                                  "(0 available)".text.color(textfieldGrey).make(),
-                                ],
+                              Obx(()=>
+                                     Row(
+                                     children: [
+                                    IconButton(onPressed: (){}, icon: const Icon(Icons.remove)),
+                                    controller.quantity.value.text.size(16).color(darkFontGrey).fontFamily(bold).make(),
+                                    IconButton(onPressed: (){}, icon: const Icon(Icons.add)),
+                                    10.widthBox,
+                                    "(${data['p_quantity']} available)".text.color(textfieldGrey).make(),
+                                  ],
+                                ),
                               ),
                             ],
                           ).box.padding(const EdgeInsets.all(8)).make(),
@@ -125,7 +135,7 @@ class ItemDetails extends StatelessWidget {
                       10.heightBox,
                       "Description".text.color(darkFontGrey).fontFamily(semibold).make(),
                       10.heightBox,
-                      "This is a item and item description here...".text.color(darkFontGrey).make(),
+                      "${data['p_desc']}".text.color(darkFontGrey).make(),
 
                       ListView(
                         physics: const NeverScrollableScrollPhysics(),

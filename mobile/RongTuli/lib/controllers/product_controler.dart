@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:rong_tuli/model/category_medl.dart';
 
 class ProductControler extends GetxController{
+  var quantity =0.obs;
 var subcat =[];
 
   getSubCategories(title) async {
