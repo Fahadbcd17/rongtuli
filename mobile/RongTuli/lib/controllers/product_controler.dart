@@ -4,6 +4,8 @@ import 'package:rong_tuli/model/category_medl.dart';
 
 class ProductControler extends GetxController{
   var quantity =0.obs;
+  var colorIndex = 0.obs;
+  var totalPrice = 0.obs;
 var subcat =[];
 
   getSubCategories(title) async {
@@ -17,5 +19,25 @@ var subcat =[];
       subcat.add(e);
       
     }
+  }
+
+  changeColorIndex(index){
+    colorIndex = index;
+  }
+
+  increseQuantity(totalQuantity){
+    if (quantity.value < totalQuantity){
+    quantity.value++;
+    }
+  }
+
+  decreaseQuantity(){
+    if (quantity.value > 0){
+    quantity.value--;
+    }
+  }
+
+  calculateTotalPrice(price){
+    totalPrice.value = price * quantity.value;
   }
 }
