@@ -5,6 +5,7 @@ import 'package:rong_tuli/views/screens/cart/cart_screen.dart';
 import 'package:rong_tuli/views/screens/category/category_screen.dart';
 import 'package:rong_tuli/views/screens/home/home_screen.dart';
 import 'package:rong_tuli/views/screens/profile/profile_screen.dart';
+import 'package:rong_tuli/widgets/Shared/exit_dialog.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -26,6 +27,9 @@ class Home extends StatelessWidget {
     ];
     return WillPopScope(
       onWillPop: () async{
+        showDialog(
+          barrierDismissible: false,
+          context: context, builder: (context) => exitDialog(context));
         return false;
       },
       child: Scaffold(

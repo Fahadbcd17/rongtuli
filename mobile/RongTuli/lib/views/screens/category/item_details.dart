@@ -134,7 +134,7 @@ class ItemDetails extends StatelessWidget {
                                         );
                                         controller.calculateTotalPrice(int.parse(data['p_price']));
                                       }, icon: const Icon(Icons.add)),
-                                      10.widthBox,
+                                      5.widthBox,
                                       "(${data['p_quantity']} available)".text.color(textfieldGrey).make(),
                                     ],
                                   ),

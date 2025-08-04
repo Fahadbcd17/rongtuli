@@ -1,16 +1,44 @@
+import 'package:flutter/services.dart';
 import 'package:rong_tuli/consts/consts.dart';
+import 'package:rong_tuli/widgets/Shared/shared_button.dart';
 
-Widget exitDialog () {
+Widget exitDialog (context) {
   return Dialog(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12),
+    ),
     child: Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         "Confirm".text.fontFamily(bold).size(18).color(darkFontGrey).make(),
-        Divider(),
+       const Divider(),
         10.heightBox,
         "Are you sure you want to exit?".text.size(16).color(darkFontGrey).make(),
+        10.heightBox,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            sharedButton(
+              color: redColor,
+              onPress: (){
+                SystemNavigator.pop();
+              },
+              textColor: whiteColor,
+              title: "Yes"
+            ),
+             sharedButton(
+              color: redColor,
+              onPress: (){
+                Navigator.pop(context);
+              },
+              textColor: whiteColor,
+              title: "No"
+            ),
+          ],
+        )
       ],
     ).box
-    .color(lightGrey).roundedSM.make(),
+    .color(lightGrey).padding(const EdgeInsets.all(12)).rounded.make(),
   );
 }
 
