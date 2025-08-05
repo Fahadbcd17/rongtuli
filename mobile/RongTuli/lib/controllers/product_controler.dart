@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:rong_tuli/consts/consts.dart';
 import 'package:rong_tuli/consts/firebase_consts.dart';
 import 'package:rong_tuli/model/category_medl.dart';
 
@@ -44,7 +45,7 @@ var subcat =[];
   }
 
   addToCart({
-    title, img, sellername, color, qty, tprice
+    title, img, sellername, color, qty, tprice,context
   }) async {
     await firestore.collection(cartCollection).doc().set({
       'title': title,
@@ -54,6 +55,13 @@ var subcat =[];
       'qty': qty,
       'tprice': tprice,
       'added_by': currentUser!.uid
+    }).catchError((error){
+      VxToast.show(context, msg: error.toString());
     });
+  }
+  resetValues (){
+    totalPrice.value = 0;
+    quantity.value = 0;
+    colorIndex.value = 0;
   }
 }
