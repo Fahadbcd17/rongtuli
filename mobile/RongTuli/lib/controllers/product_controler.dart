@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:rong_tuli/consts/firebase_consts.dart';
 import 'package:rong_tuli/model/category_medl.dart';
 
 class ProductControler extends GetxController{
@@ -39,5 +41,19 @@ var subcat =[];
 
   calculateTotalPrice(price){
     totalPrice.value = price * quantity.value;
+  }
+
+  addToCart({
+    title, img, sellername, color, qty, tprice
+  }) async {
+    await firestore.collection(cartCollection).doc().set({
+      'title': title,
+      'img': img,
+      'sellername': sellername,
+      'color': color,
+      'qty': qty,
+      'tprice': tprice,
+      'added_by': currentUser!.uid
+    });
   }
 }
