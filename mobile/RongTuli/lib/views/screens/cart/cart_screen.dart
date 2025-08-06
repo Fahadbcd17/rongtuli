@@ -14,6 +14,22 @@ class CartScreen extends StatelessWidget {
         .fontFamily(semibold)
         .make(),
       ),
+
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Expanded(child: Container()),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                "Total price".text.fontFamily(semibold).color(darkFontGrey).make(),
+                "40".numCurrency.text.fontFamily(semibold).color(redColor).make()
+              ],
+            ).box.padding(EdgeInsets.all(12)).color(lightGolden).roundedSM.make(),
+          ],
+        ),
+      ),
     );
   }
 }
