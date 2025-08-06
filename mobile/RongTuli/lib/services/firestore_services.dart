@@ -9,4 +9,11 @@ class FirestoreServices {
   static getProducts(Category){
     return firestore.collection(productsCollection).where('p_category', isEqualTo: Category).snapshots();
   }
+
+  static getCart (uid){
+    return firestore
+    .collection(cartCollection)
+    .where('added_by', isEqualTo: uid)
+    .snapshots();
+  }
 }
