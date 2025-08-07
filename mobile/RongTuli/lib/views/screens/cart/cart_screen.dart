@@ -50,6 +50,9 @@ class CartScreen extends StatelessWidget {
                     subtitle: "${data[index]['tprice']}".numCurrency
                     .text.color(redColor)
                     .fontFamily(semibold).make(),
+                    trailing: const Icon(Icons.delete,
+                    color: redColor)
+                    .onTap((){}),
                     );
                 },
                 ),
@@ -60,7 +63,7 @@ class CartScreen extends StatelessWidget {
                 "Total price".text.fontFamily(semibold).color(darkFontGrey).make(),
                 "40".numCurrency.text.fontFamily(semibold).color(redColor).make()
               ],
-            ).box.padding(EdgeInsets.all(12))
+            ).box.padding( const EdgeInsets.all(12))
             .width(context.screenWidth - 60)
             .color(lightGolden).roundedSM.make(),
 
