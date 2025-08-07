@@ -16,4 +16,8 @@ class FirestoreServices {
     .where('added_by', isEqualTo: uid)
     .snapshots();
   }
+
+  static deleteItem(itemId){
+    return firestore.collection(cartCollection).doc(itemId).delete();
+  }
 }

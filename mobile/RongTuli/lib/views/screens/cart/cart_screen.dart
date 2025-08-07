@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
+import 'package:get/route_manager.dart';
 import 'package:rong_tuli/consts/consts.dart';
+import 'package:rong_tuli/controllers/cart_controller.dart';
 import 'package:rong_tuli/services/firestore_services.dart';
 import 'package:rong_tuli/widgets/Shared/loading_indicator.dart';
 import 'package:rong_tuli/widgets/Shared/shared_button.dart';
@@ -10,6 +13,8 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    var controller = Get.put(CartController());
     return Scaffold(
       backgroundColor: whiteColor,
       appBar: AppBar(
@@ -33,6 +38,7 @@ class CartScreen extends StatelessWidget {
           } else {
 
             var data = snapshots.data!.docs;
+            controller.calculate(data);
 
             return Padding(
         padding: const EdgeInsets.all(8.0),
@@ -44,7 +50,7 @@ class CartScreen extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index){
                   return ListTile(
                     leading: Image.network("${data[index]['img']}"),
-                    title: "${data [index]['title']}"
+                    title: "${data [index]['title']} (x${data[index]['qty']})"
                     .text.fontFamily(semibold)
                     .size(16).make(),
                     subtitle: "${data[index]['tprice']}".numCurrency
@@ -52,7 +58,9 @@ class CartScreen extends StatelessWidget {
                     .fontFamily(semibold).make(),
                     trailing: const Icon(Icons.delete,
                     color: redColor)
-                    .onTap((){}),
+                    .onTap((){
+                      FirestoreServices.deleteItem(data[index].id);
+                    }),
                     );
                 },
                 ),
@@ -61,7 +69,9 @@ class CartScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 "Total price".text.fontFamily(semibold).color(darkFontGrey).make(),
-                "40".numCurrency.text.fontFamily(semibold).color(redColor).make()
+                Obx(() => 
+                "${controller.totalP.value}"
+                .numCurrency.text.fontFamily(semibold).color(redColor).make())
               ],
             ).box.padding( const EdgeInsets.all(12))
             .width(context.screenWidth - 60)
