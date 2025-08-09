@@ -3,6 +3,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:rong_tuli/consts/consts.dart';
 import 'package:rong_tuli/consts/list.dart';
 import 'package:rong_tuli/controllers/product_controler.dart';
+import 'package:rong_tuli/views/screens/chat_screen/chat_screen.dart';
 import 'package:rong_tuli/widgets/Shared/shared_button.dart';
 
 
@@ -86,7 +87,9 @@ class ItemDetails extends StatelessWidget {
                            const CircleAvatar(
                               backgroundColor: Colors.white,
                               child: Icon(Icons.message_rounded, color: darkFontGrey),
-                            ),
+                            ).onTap((){
+                              Get.to(() => const ChatScreen());
+                            }),
                           ],
                         ).box.height(60).padding(const EdgeInsets.symmetric(horizontal: 16)).color(textfieldGrey).make(),
                         20.heightBox,
