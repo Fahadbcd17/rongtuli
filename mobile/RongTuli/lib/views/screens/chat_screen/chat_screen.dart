@@ -9,6 +9,22 @@ class ChatScreen extends StatelessWidget {
       appBar: AppBar(
         title: "Title".text.fontFamily(semibold).color(darkFontGrey).make(),
       ),
+
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Expanded(child: Container(color: Colors.teal)),
+            Row(
+              children: [
+                Expanded(child: TextFormField()),
+                IconButton(onPressed: (){}, icon: const Icon(Icons.send, color: redColor)),
+              ],
+            ).box.height(60).padding(const EdgeInsets.all(12)).make()
+          ],
+        ),
+      ),
+
     );
   }
 }
