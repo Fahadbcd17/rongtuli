@@ -88,7 +88,9 @@ class ItemDetails extends StatelessWidget {
                               backgroundColor: Colors.white,
                               child: Icon(Icons.message_rounded, color: darkFontGrey),
                             ).onTap((){
-                              Get.to(() => const ChatScreen());
+                              Get.to(() => const ChatScreen(),
+                              arguments: [data['p_seller'], data['vendor']],
+                              );
                             }),
                           ],
                         ).box.height(60).padding(const EdgeInsets.symmetric(horizontal: 16)).color(textfieldGrey).make(),

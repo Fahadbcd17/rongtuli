@@ -6,6 +6,13 @@ import 'package:rong_tuli/controllers/home_controller.dart';
 
 class ChatController extends GetxController {
 
+
+  @override
+  void onInit() {
+   getChatId();
+    super.onInit();
+  }
+
 var chats = firestore.collection(chatsCollection);
 
 
@@ -19,7 +26,10 @@ var msgController = TextEditingController();
 
 dynamic chatDocId;
 
+var isloading = false.obs;
+
 getChatId() async {
+  isloading(true);
   await chats.where('users', isEqualTo: {
     friendId : null,
     currentId : null
@@ -41,6 +51,7 @@ getChatId() async {
       });
     }
   });
+  isloading(false);
 }
 
 sendMsg (String msg) async {

@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rong_tuli/consts/consts.dart';
+import 'package:intl/intl.dart' as intl;
 
 
-Widget senderBubble (){
+Widget senderBubble (DocumentSnapshot data){
+  var t = data ['created_on'] == null ? DateTime.now() : data ['created_on'].toDate();
+  var time = intl.DateFormat("h:mma").format(t);
   return  Container(
     padding: const EdgeInsets.all(8),
     margin: const EdgeInsets.only(bottom: 8),
@@ -14,9 +18,9 @@ Widget senderBubble (){
                   )),
    child: Column(
        children: [
-                  "Message here...".text.white.size(16).make(),
+                  "${data['msg']}".text.white.size(16).make(),
                   10.heightBox,
-                  "16:24".text.color(whiteColor.withOpacity(0.5)).make()
+                  time.text.color(whiteColor.withOpacity(0.5)).make()
                     ],
                  ),
             );
