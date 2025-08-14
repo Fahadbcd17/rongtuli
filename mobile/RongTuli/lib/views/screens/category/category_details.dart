@@ -57,7 +57,8 @@ class CategoryDetails extends StatelessWidget {
                     physics:const BouncingScrollPhysics(),
                 shrinkWrap: true,
                   itemCount: data.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,mainAxisExtent:250, mainAxisSpacing: 8,crossAxisSpacing: 8),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,mainAxisExtent:250, mainAxisSpacing: 8,crossAxisSpacing: 8),
                   itemBuilder: (context,index){
                    return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,9 +69,12 @@ class CategoryDetails extends StatelessWidget {
                         const Spacer(),
                         "${data[index]['p_name']}".text.fontFamily(semibold).color(darkFontGrey).make(),
                         10.heightBox,
-                        "${data[index]['p_price']}".numCurrencyWithLocale().text.color(redColor).fontFamily(bold).size(16).make(),
+                        "${data[index]['p_price']}".numCurrencyWithLocale()
+                        .text.color(redColor).fontFamily(bold).size(16).make(),
                       ],
-                    ).box.white.roundedSM.margin(const EdgeInsets.symmetric(horizontal: 4)).outerShadowSm.padding(const EdgeInsets.all(8)).make().onTap((){
+                    ).box.white.roundedSM.margin(const EdgeInsets.symmetric(horizontal: 4))
+                    .outerShadowSm.padding(const EdgeInsets.all(8)).make().onTap((){
+                      controller.checkIfFav(data[index]);
                       Get.to(() =>  ItemDetails(title: "${data[index]['p_name']}", data: data[index]));
                    });
                   }))
