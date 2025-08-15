@@ -35,11 +35,11 @@ class ItemDetails extends StatelessWidget {
             Obx(() =>
                IconButton(onPressed: (){
                 if (controller.isFav.value){
-                  controller.removeFromWishList(data.id);
-                  controller.isFav(false);
+                  controller.removeFromWishList(data.id, context);
+                 
                 } else {
-                  controller.addToWishList(data.id);
-                  controller.isFav(true);
+                  controller.addToWishList(data.id, context);
+                  
                 }
               }, icon: Icon(Icons.favorite_outlined,
               color: controller.isFav.value ? redColor : darkFontGrey

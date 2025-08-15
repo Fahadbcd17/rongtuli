@@ -68,18 +68,20 @@ var isFav = false.obs;
     colorIndex.value = 0;
   }
 
-  addToWishList(docId) async{
+  addToWishList(docId, context) async{
     await firestore.collection(productsCollection).doc(docId).set({
       'p_wishlist' : FieldValue.arrayUnion([currentUser!.uid])
     },SetOptions(merge:true));
     isFav(true);
+    VxToast.show(context, msg: "Add to wishlist");
   }
 
-   removeFromWishList(docId) async{
+   removeFromWishList(docId, context) async{
     await firestore.collection(productsCollection).doc(docId).set({
       'p_wishlist' : FieldValue.arrayRemove([currentUser!.uid])
     },SetOptions(merge:true));
     isFav(false);
+    VxToast.show(context, msg: "Removed from wishlist");
   }
 
   checkIfFav(data) async{

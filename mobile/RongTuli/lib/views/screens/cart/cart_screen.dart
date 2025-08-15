@@ -17,6 +17,15 @@ class CartScreen extends StatelessWidget {
     var controller = Get.put(CartController());
     return Scaffold(
       backgroundColor: whiteColor,
+      bottomNavigationBar: SizedBox(
+        height: 60,
+        child: sharedButton(
+                  color: redColor,
+                  onPress: (){},
+                  textColor: whiteColor,
+                  title: "Order Now"
+                ),
+      ),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: "Shopping cart".text.color(darkFontGrey)
@@ -79,14 +88,14 @@ class CartScreen extends StatelessWidget {
 
             10.heightBox,
 
-            SizedBox(
-              width: context.screenWidth - 60,
-              child: sharedButton(
-                color: redColor,
-                onPress: (){},
-                textColor: whiteColor,
-                title: "Order Now"
-              )),
+            // SizedBox(
+            //   width: context.screenWidth - 60,
+            //   child: sharedButton(
+            //     color: redColor,
+            //     onPress: (){},
+            //     textColor: whiteColor,
+            //     title: "Order Now"
+            //   )),
           ],
         ),
       );
