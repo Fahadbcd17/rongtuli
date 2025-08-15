@@ -4,6 +4,7 @@ import 'package:get/route_manager.dart';
 import 'package:rong_tuli/consts/consts.dart';
 import 'package:rong_tuli/controllers/cart_controller.dart';
 import 'package:rong_tuli/services/firestore_services.dart';
+import 'package:rong_tuli/views/screens/cart/shipping_screen.dart';
 import 'package:rong_tuli/widgets/Shared/loading_indicator.dart';
 import 'package:rong_tuli/widgets/Shared/shared_button.dart';
 
@@ -21,7 +22,9 @@ class CartScreen extends StatelessWidget {
         height: 60,
         child: sharedButton(
                   color: redColor,
-                  onPress: (){},
+                  onPress: (){
+                    Get.to(()=> const ShippingScreen());
+                  },
                   textColor: whiteColor,
                   title: "Order Now"
                 ),
