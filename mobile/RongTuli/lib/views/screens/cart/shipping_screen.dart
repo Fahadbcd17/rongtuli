@@ -24,15 +24,18 @@ class ShippingScreen extends StatelessWidget {
           title: "Continue" 
         ),
       ),
-      body: Column(
-        children: [
-          textField(hint: "Country", isPass: false,title: "Country"),
-          textField(hint: "City", isPass: false, title: "City"),
-          textField(hint: "State", isPass: false,title: "State"),
-          textField(hint: "Post Code", isPass: false,title: "Post Code"),
-          textField(hint: "Address", isPass: false,title: "Address"),
-          textField(hint: "Phone", isPass: false, title: "Phone"),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          children: [
+            textField(hint: "Country", isPass: false,title: "Country"),
+            textField(hint: "City", isPass: false, title: "City"),
+            textField(hint: "State", isPass: false,title: "State"),
+            textField(hint: "Post Code", isPass: false,title: "Post Code"),
+            textField(hint: "Address", isPass: false,title: "Address"),
+            textField(hint: "Phone", isPass: false, title: "Phone"),
+          ],
+        ),
       ),
     );
   }
