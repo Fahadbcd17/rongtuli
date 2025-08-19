@@ -3,6 +3,7 @@ import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:rong_tuli/consts/consts.dart';
 import 'package:rong_tuli/controllers/cart_controller.dart';
+import 'package:rong_tuli/views/screens/cart/payment_screen.dart';
 import 'package:rong_tuli/widgets/Shared/shared_button.dart';
 import 'package:rong_tuli/widgets/Shared/text_field.dart';
 
@@ -25,7 +26,9 @@ class ShippingScreen extends StatelessWidget {
         height: 60,
         child: sharedButton(
           onPress: (){
-            if (controller.addressController.text.length > 10) {
+            if (controller.addressController.text.length > 10){
+              Get.to(()=> const PaymentScreen());
+            } else {
               VxToast.show(context, msg: "Please fill the form right way");
             }
           },

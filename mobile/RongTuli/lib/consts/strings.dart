@@ -57,5 +57,14 @@ const video = "Video",
     productsYouMayLike = "Products you may also like";
 
 
-const wishlist = "My Wishlist", orders = "My Orders", messages = "Messages", oldpass = "Old password", newpass = "New password";
+const wishlist = "My Wishlist", 
+orders = "My Orders", 
+messages = "Messages", 
+oldpass = "Old password", 
+newpass = "New password";
+
+const paypal = "Paypal",
+stripe = "Stripe",
+cod = "Cash on delivery",
+payfast = "Payfast";
 
