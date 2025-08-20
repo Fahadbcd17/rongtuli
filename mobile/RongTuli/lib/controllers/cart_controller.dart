@@ -10,6 +10,7 @@ class CartController extends GetxController {
   var postcodeController = TextEditingController();
   var addressController = TextEditingController();
   var phoneController = TextEditingController();
+  var paymentIndex = 0.obs;
 
   calculate(data){
     totalP.value = 0;
