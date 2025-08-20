@@ -32,47 +32,57 @@ class PaymentScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
-        child: Column(
-          children: List.generate(paymentMethodsImg.length, (index){
-            return GestureDetector(
-              onTap: () {
+        child: Obx(() =>
+              Column(
+            children: List.generate(paymentMethodsImg.length, (index){
+              return GestureDetector(
+                onTap: () {
+                  controller.changePaymentIndex(index);
+                },
+                child: Container(
+                  clipBehavior: Clip.antiAlias,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      
+                      color: controller.paymentIndex.value == index ? 
+                       redColor : Colors.transparent,
+                      width: 4
+                    )
                 
-              },
-              child: Container(
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    
-                    color: controller.paymentIndex.value == index ? 
-                     redColor : Colors.transparent,
-                    width: 4
-                  )
-              
-                ),
-                margin: const EdgeInsets.only(bottom: 8),
-                child: Stack(
-                  alignment: Alignment.topRight,
-                  children:[ Image.asset(paymentMethodsImg[index], 
-                  width: double.infinity, 
-                  height: 100,fit: BoxFit.cover),
-                  controller.paymentIndex.value == index ?
-                  Transform.scale(
-                    scale: 1.3,
-                    child: Checkbox(
-                      activeColor: Colors.green,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50)
+                  ),
+                  margin: const EdgeInsets.only(bottom: 8),
+                  child: Stack(
+                    alignment: Alignment.topRight,
+                    children:[ Image.asset(paymentMethodsImg[index], 
+                    width: double.infinity, 
+                    height: 120,
+                    colorBlendMode: controller.paymentIndex.value == index ? BlendMode.darken : BlendMode.color,
+                    color: controller.paymentIndex.value == index ? Colors.black.withOpacity(0.4) : Colors.transparent,
+                    fit: BoxFit.cover),
+                    controller.paymentIndex.value == index ?
+                    Transform.scale(
+                      scale: 1.3,
+                      child: Checkbox(
+                        activeColor: Colors.green,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50)
+                        ),
+                        value: true, onChanged: (value){}
+                        ),
+                    )
+                    : Container(),
+                    Positioned(
+                      bottom: 10,
+                      right: 10,
+                      child: paymentMethods[index].text.white.fontFamily(semibold).make(),
                       ),
-                      value: true, onChanged: (value){}
-                      ),
-                  )
-                  : Container(),
-                  ]
+                    ]
+                  ),
                 ),
-              ),
-            );
-          }),
+              );
+            }),
+          ),
         ),
       ),
     );

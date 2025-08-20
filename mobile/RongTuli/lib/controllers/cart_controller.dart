@@ -19,4 +19,8 @@ class CartController extends GetxController {
       
     }
   }
+
+  changePaymentIndex (index) {
+    paymentIndex.value = index;
+  }
 }
