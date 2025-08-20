@@ -19,7 +19,13 @@ class PaymentScreen extends StatelessWidget {
       bottomNavigationBar:  SizedBox(
         height: 60,
         child: sharedButton(
-          onPress: (){},
+          onPress: (){
+            controller.placeMyOrder(
+              orderPaymentMethod: paymentMethods
+              [controller.paymentIndex.value], 
+              totalAmount: controller.totalP.value
+              );
+          },
           color: redColor,
           textColor: whiteColor,
           title: "Place Order" 
